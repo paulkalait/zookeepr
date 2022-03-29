@@ -3,6 +3,7 @@ const { animals } = require('./data/animal.json')
 //to get the express package use require
 const express = require('express');
 const { fileURLToPath } = require('url');
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 function filterByQuery(query, animalsArray) { 
@@ -52,6 +53,6 @@ app.get('/api/animals', (req, res) => {
    res.json(results)
 })
 //make server listen use .listen() method
-app.listen(3001, () => {
-    console.log(`API server on port 3001!`)
+app.listen(PORT, () => {
+    console.log(`API server on port ${PORT}`)
 })
