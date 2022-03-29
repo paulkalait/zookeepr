@@ -27,8 +27,8 @@ function filterByQuery(query, animalsArray) {
             //so at the end we'll have an array of animals that have every
             //of the trait when the forEach() loop is finished.
             filteredResults = filteredResults.filter(
-                animal => animal.personalityTraits.indexOf(trait) !== -1;
-                )
+                animal => animal.personalityTraits.indexOf(trait) !== -1)
+                
         })
     }
     if(query.diet){
@@ -41,6 +41,12 @@ function filterByQuery(query, animalsArray) {
         filteredResults =  filteredResults.filter(animal => animal.name === query.name)
     }
     return filteredResults;
+
+}
+
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result
 }
 
 //route
@@ -51,6 +57,15 @@ app.get('/api/animals', (req, res) => {
        results = filterByQuery(req.query, results)
    }
    res.json(results)
+})
+
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals)
+    if(results){
+        res.json(result)
+    }else{
+        res.send(404)
+    }
 })
 //make server listen use .listen() method
 app.listen(PORT, () => {
